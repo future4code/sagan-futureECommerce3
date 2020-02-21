@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Main = styled.div`
-    
+    width: 350px;
+`
+const Produto = styled.p`
+width: 350px;
 `
 
 class Carrinho extends React.Component {
@@ -19,7 +22,7 @@ class Carrinho extends React.Component {
         return (
             <Main>
                 <h3>Carrinho:</h3>
-                {this.props.listaCarrinhoComponent}
+                <Produto>{this.props.listaCarrinhoComponent}</Produto>
                 <p>Total: <b>R$ {this.props.total}</b></p>
             </Main>
         )

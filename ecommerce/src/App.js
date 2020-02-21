@@ -3,17 +3,30 @@ import styled from 'styled-components';
 import Produto from './Components/Produto';
 import Carrinho from './Components/Carrinho';
 import Filtro from './Components/Filtro';
+import OrdenaProdutos from './Components/OrdenaProdutos';
 
 const Aplicativo = styled.div`
-  background-color:grey;
   display:flex;
   width:100%;
 `
 const Produtos = styled.div`
   display:flex;
   flex-wrap:wrap;
-  width: 80%;
+  width: 100%;
 `
+const JanelaCarrinho = styled.div`
+
+`
+
+const BotaoCarrinho = styled.img`
+width:50px;
+height:50px;
+position:fixed;
+bottom:20px;
+right:20px;
+
+`
+
 
 class App extends React.Component {
   constructor(props) {
@@ -22,19 +35,20 @@ class App extends React.Component {
       listaProdutos: [
         { id: 1, nome: "Camiseta perdido no espaço", preco: 29.90, imagem: require("./img/prod1.png") },
         { id: 2, nome: "Camiseta rebelião no espaço", preco: 23.60, imagem: require("./img/prod2.png") },
-        { id: 3, nome: "Camiseta onibus espacial feminina", preco: 36.30, imagem: require("./img/prod3.png") },
+        { id: 3, nome: "Camiseta onibus espacial F", preco: 36.30, imagem: require("./img/prod3.png") },
         { id: 4, nome: "Camiseta astrodev", preco: 39.30, imagem: require("./img/prod4.png") },
-        { id: 5, nome: "Camiseta naza feminina", preco: 16.60, imagem: require("./img/prod5.jpg") },
-        { id: 6, nome: "Camiseta miau espacial", preco: 29.90, imagem: require("./img/prod6.png") },
+        { id: 5, nome: "Camiseta naza F", preco: 16.60, imagem: require("./img/prod5.jpg") },
+        { id: 6, nome: "Camiseta miau espacial", preco: 19.90, imagem: require("./img/prod6.png") },
         { id: 7, nome: "Camiseta leve-me por favor", preco: 26.60, imagem: require("./img/prod7.png") },
         { id: 8, nome: "Camiseta tom and jerry", preco: 46.30, imagem: require("./img/prod8.png") }
       ],
       listaCarrinho: [],
-      listaFiltrada: []
+      listaFiltrada: [],
+      carrinhoAberto:false
 
     }
   }
-  //Adiciona produto no state
+  
   adicionarProdutoNoCarrinho = (id) => {
     let copiaListaCarrinho = this.state.listaCarrinho
     copiaListaCarrinho = [...copiaListaCarrinho, this.state.listaProdutos[id - 1]]
@@ -48,7 +62,7 @@ class App extends React.Component {
       listaCarrinho: copiaListaCarrinho
     })
   }
-  //Retira produto do carrinho
+  
   retirarProdutoDoCarrinho = (id) => {
     const copiaListaCarrinho = this.state.listaCarrinho
     copiaListaCarrinho.splice(id, 1)
@@ -63,10 +77,11 @@ class App extends React.Component {
     })
     console.log(copiaListaCarrinho)
   }
-  //Variavel que retorna a lista do carrinho
+  
   carrinho = () => {
-    //console.log(this.state.listaCarrinhoComponent)
-    return (<Carrinho listaCarrinhoComponent={this.state.listaCarrinhoComponent} total={this.calculaTotal()} />)
+    if (this.state.carrinhoAberto){
+      return (<Carrinho listaCarrinhoComponent={this.state.listaCarrinhoComponent} total={this.calculaTotal()} />)
+    }
   }
   calculaTotal = () => {
     let valor = 0
@@ -93,7 +108,8 @@ class App extends React.Component {
 
     //return produtosFiltrados
     this.setState({
-      listaFiltrada: produtosFiltrados
+      listaFiltrada: produtosFiltrados,
+      listaFiltradaDados:copialistaFiltrada
     })
   }
 
@@ -105,6 +121,13 @@ class App extends React.Component {
     })
     return produtosFiltrados
   }
+
+ 
+  abreFechaCarrinho = ()=>{
+      this.setState({
+        carrinhoAberto: !this.state.carrinhoAberto
+      })
+  }
   render() {
 
     return (
@@ -114,13 +137,13 @@ class App extends React.Component {
           this.produtos(copialistaFiltrada)
 
         }} />
-    
-        <Produtos>{this.state.listaFiltrada.length?this.state.listaFiltrada:this.produtosSemFiltro()}</Produtos>
-        
-        
+        <div>
+          <OrdenaProdutos ordenar={(listaOrdenada)=>{this.produtos(listaOrdenada)}} lista={this.state.listaFiltrada.length ? this.state.listaFiltradaDados : this.state.listaProdutos} />
+          <Produtos>{this.state.listaFiltrada.length ? this.state.listaFiltrada : this.produtosSemFiltro()}</Produtos>
 
-        <div>{this.carrinho()}</div>
-
+        </div>  
+        <JanelaCarrinho>{this.carrinho()}</JanelaCarrinho>
+        <BotaoCarrinho onClick={this.abreFechaCarrinho} src={require("./img/icone-carrinho.png")} />
       </Aplicativo>
     )
   }
