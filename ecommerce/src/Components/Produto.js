@@ -22,7 +22,6 @@ class Produto extends React.Component {
 
 
     render() {
-        const valor = 33
         return (
             <Main>
                 <Imagem src={this.props.imagem} alt="Imagem do produto" />

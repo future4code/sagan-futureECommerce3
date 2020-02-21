@@ -97,7 +97,7 @@ class App extends React.Component {
     })
   }
 
-  produtosSemFiltro = ()=>{
+  produtosSemFiltro = () => {
     const produtosFiltrados = this.state.listaProdutos.map((elemento, index, array) => {
       return (<Produto adicionaClick={(id) => {
         this.adicionarProdutoNoCarrinho(id)
@@ -114,20 +114,12 @@ class App extends React.Component {
           this.produtos(copialistaFiltrada)
 
         }} />
+    
+        <Produtos>{this.state.listaFiltrada.length?this.state.listaFiltrada:this.produtosSemFiltro()}</Produtos>
+        
+        
 
-        <Produtos>{this.state.listaFiltrada}</Produtos>
-
-        <Produtos>{() => {
-          if ((this.state.listaFiltrada === undefined) || (this.state.listaFiltrada === "")) {
-            {this.produtosSemFiltro()}
-          }else{
-            this.state.listaFiltrada
-          }
-        }}</Produtos>
-
-        {/* <Produtos> {this.produtos()} </Produtos> */}
-
-        {/* <div>{this.carrinho()}</div> */}
+        <div>{this.carrinho()}</div>
 
       </Aplicativo>
     )
