@@ -5,7 +5,7 @@ const Main = styled.div`
     display:flex;
     flex-direction: column;
     width: 250px;
-    border: 1px solid black
+    border: 1px solid black;
 `
 const Imagem = styled.img`
 width:100%;
@@ -22,13 +22,15 @@ class Produto extends React.Component {
 
 
     render() {
-
+        const valor = 33
         return (
             <Main>
                 <Imagem src={this.props.imagem} alt="Imagem do produto" />
                 <p>{this.props.nome}</p>
                 <p>{this.props.preco}</p>
-                <button>Adicionar ao Carrinho</button>
+                <button onClick={()=>{
+                    this.props.adicionaClick(this.props.id)
+                    }}>Adicionar ao Carrinho</button>
             </Main>
         )
     }
