@@ -4,8 +4,9 @@ import styled from 'styled-components';
 const Main = styled.div`
     display:flex;
     flex-direction: column;
-    width: 250px;
+    width: 200px;
     border: 1px solid black;
+    margin:1%;
 `
 const Imagem = styled.img`
 width:100%;
