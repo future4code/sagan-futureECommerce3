@@ -4,10 +4,10 @@ import styled from 'styled-components'
 
 const Main = styled.div`
 display:flex;
-width:90%;
+width:93%;
 justify-content:space-between;
 margin-left:3%;
-margin-right:3%;
+margin-right:6%;
 `
 
 
