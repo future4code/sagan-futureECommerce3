@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Main = styled.div`
-    width: 350px;
+    width: 30%;
 `
 const Produto = styled.p`
-width: 350px;
+width: 280px;
 `
 
 class Carrinho extends React.Component {
